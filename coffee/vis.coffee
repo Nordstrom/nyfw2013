@@ -25,16 +25,19 @@ prettyName = (d) ->
 MoveBubbles = () ->
   # standard variables accessible to
   # the rest of the functions inside Bubbles
+  top_tweets = []
   width = 940
   height = 610
   data = []
   node = null
   label = null
+  svg = null
+  top_data = null
   margin = {top: 5, right: 0, bottom: 0, left: 0}
   # largest size for our bubbles
   maxRadius = 65
 
-  centers = {brand: {x:300, y:300}, other: {x:500, y:300}}
+  centers = {brand: {x:300, y:300}, other: {x:600, y:300}}
   split = false
 
   grav = -0.01
@@ -367,7 +370,8 @@ MoveBubbles = () ->
   # clears currently selected bubble
   # ---
   clear = () ->
-    location.replace("#")
+    # location.replace("#")
+    d3.event.preventDefault()
 
   # ---
   # changes clicked bubble by modifying url
@@ -387,12 +391,39 @@ MoveBubbles = () ->
   # activates new node
   # ---
   updateActive = (id) ->
-    node.classed("bubble-selected", (d) -> id == idValue(d))
-    # if no node is selected, id will be empty
-    if id.length > 0
-      d3.select("#status").html("<h3>The word <span class=\"active\">#{id}</span> is now active</h3>")
+    tweets = top_tweets[id]
+    d3.select("#active_hashtag").text(id)
+    if tweets
+      sec = d3.select("#hashtag_tweets").html("")
+      sec = d3.select("#hashtag_tweets").selectAll(".twitter-tweet").remove()
+      sec = d3.select("#hashtag_tweets").selectAll(".tweet")
+        .data(tweets).enter()
+      # sec.append("div")
+        # .attr("class", "tweet")
+
+      sec.append("blockquote")
+        .attr("class", "twitter-tweet")
+        .html((d) -> "<p>#{d.body}</p> &mdash; @#{d.user} <a href='https://twitter.com/#{d.user}/statuses/#{d.id}'>twitter link</a>")
+
+      # str = "<blockquote class='twitter-tweet'><p><a href='https://twitter.com/#{d.user}'>@#{d.user}</a> #{d.body}<a href="https://twitter.com/arnicas/statuses/378606400336711681">September 13, 2013</a></blockquote>
+# <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
     else
-      d3.select("#status").html("<h3>No word is active</h3>")
+      console.log("error: no tweets for #{id}")
+    # search_string = "https://twitter.com/search?q=%23mbfw+%23#{id}"
+    # console.log(search_string)
+    node.classed("bubble-selected", (d) -> id == idValue(d))
+    # d3.select('#twitter-widget-0').remove()
+    # if no node is selected, id will be empty
+    #
+    # d3.select("#twitter-time-search").attr("a", search_string)
+    # `!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");`
+    # if id.length > 0
+    #   d3.select("#status").html("<h3>The word <span class=\\"active\\">#{id}</span> is now active</h3>")
+    # else
+    #   d3.select("#status").html("<h3>No word is active</h3>")
 
   # ---
   # hover event
@@ -415,6 +446,12 @@ MoveBubbles = () ->
       return jitter
     jitter = _
     force.start()
+    chart
+
+  chart.tops = (_) ->
+    if !arguments.length
+      return top_tweets
+    top_tweets = _
     chart
 
   # ---
@@ -444,8 +481,32 @@ MoveBubbles = () ->
     rValue = _
     chart
 
+  showTitles = () ->
+
+    svg.append("text")
+      .attr("class", "label_brand")
+      .attr("x", centers['brand'].x)
+      .attr('dx', -150)
+      .attr('y', 580)
+      .text("Brands / Designers")
+
+    svg.append("text")
+      .attr("class", "label_other")
+      .attr("x", centers['other'].x )
+      .attr('dx', -20)
+      .attr('y', 580)
+      .text("General")
+
+  hideTitles = () ->
+    svg.select(".label_brand").remove()
+    svg.select(".label_other").remove()
+
   chart.toggle = (_) ->
     split = !split
+    if split
+      showTitles()
+    else
+      hideTitles()
 
     force.start()
   
@@ -737,13 +798,15 @@ $ ->
   bubbles = BubblePlot()
   moves = MoveBubbles()
   bubbles.world(plot)
-  display = (error, data, top_data, world) ->
+  display = (error, data, top_data, world, top_tweets) ->
     plotData("#vis", data, world, plot)
 
     d3.select("#bubbles")
       .datum(data)
       .call(bubbles)
 
+
+    moves.tops(top_tweets)
     d3.select("#move_bubbles")
       .datum(top_data)
       .call(moves)
@@ -753,6 +816,7 @@ $ ->
     .defer(d3.csv, "data/mbfw_position_aggregate.csv")
     .defer(d3.csv, "data/top_mbfw_cat.csv")
     .defer(d3.json, "data/world-50m.json")
+    .defer(d3.json, "data/top_tweets.json")
     .await(display)
 
   toggleMoves = (t) ->

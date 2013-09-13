@@ -57,10 +57,10 @@ a {
 
 .bubble-selected {
   /* fill: #a8c8ee;  */
-  fill: #CEE98F;
+  /* fill: #CEE98F; */
   /* stroke: #6081a3; */
-  stroke: #A6BA92;
-  stroke-width: 1.5px;
+  stroke: black;
+  stroke-width: 2.5px;
 }
 
 .active {
@@ -97,6 +97,13 @@ a.bubble-label {
 #view_selection {
   /* float:right; */
   margin-right: 10px;
+}
+
+#twitter-widget-0 {
+  margin-left: 200px;
+}
+.twitter-timeline {
+  margin: auto;
 }
 
 
