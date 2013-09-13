@@ -1,0 +1,154 @@
+body {
+  background: #fcfcfa;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style:italic;
+  font-weight:normal;
+}
+
+h1,h2,h3,h4 {
+  font-family: Georgia, "Times New Roman", serif;
+
+}
+
+h3 {
+  font-style:normal;
+}
+
+a {
+  color: rgb(255, 111, 64);
+}
+
+
+#vis {
+  width:940px;
+  height: 600px;
+}
+
+.hashtag {
+  /* color: rgb(22, 162, 122); */
+  color: rgb(255, 111, 64);
+}
+
+
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+#sphere {
+  stroke-width: 1px;
+}
+
+.fill {
+  fill: #fff;
+}
+
+.graticule {
+  fill: none;
+  stroke: none;
+  stroke: #999;
+  stroke-width: .5px;
+  stroke-opacity: .3;
+  stroke-dasharray: 2 2;
+}
+
+rect {
+  fill: none;
+  /* pointer-events: all; */
+}
+
+.cover {
+  fill: none;
+  pointer-events: all;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.symbol {
+  /* fill: rgb(22, 162, 122); */
+  fill: rgb(255, 111, 64);
+  
+  /* fill: steelblue; */
+  fill-opacity: .7;
+  stroke: #fff;
+  pointer-events: none;
+  
+}
+
+.hidden_symbol {
+  /* fill: none; */
+  fill-opacity: 0;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.points circle {
+  /* fill: #fff; */
+  /* stroke: red; */
+  stroke-width: 2px;
+}
+
+.points {
+  fill-opacity: 0.6;
+}
+
+.points text {
+  font: 11px sans-serif;
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.route {
+  fill: none;
+  stroke: red;
+  /* stroke-width: 3px; */
+}
+
+.bubble {
+  /* padding-left: 20px; */
+  width: 235px;
+  height: 300px;
+  float:left;
+  /* background-color: #ddd; */
+  /* border: solid 1px black; */
+  position: relative;
+}
+
+.bubble h2 {
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.bubble .tweet_count {
+  text-align: center;
+  font-size: 20px;
+  color: #888;
+  width: 100%;
+  position: absolute;
+  bottom: 15px;
+
+  font-weight: normal;
+}
+
+.bubble svg {
+  position: absolute;
+  top: 60px;
+}
+
+.bubble .circle {
+  /* fill: rgb(22, 162, 122); */
+  
+  fill: rgb(255, 111, 64);
+  /* fill: steelblue; */
+  fill-opacity: .9;
+  stroke: #fff;
+  /* pointer-events: all; */
+}
