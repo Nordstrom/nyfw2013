@@ -24,6 +24,67 @@ a {
   height: 600px;
 }
 
+#move_container {
+  /* position: absolute; */
+}
+
+#move_bubbles {
+  overflow: hidden;
+  position: relative;
+}
+
+#controls {
+  padding: 20px;
+  background-color: #eee;
+  margin: 10px;
+  width: 350px;
+}
+
+#bubble-background {
+  fill: none;
+  pointer-events: all;
+}
+
+.bubble-node {
+  /* fill: #d1e0f3; */
+  /* fill: #DCE9BE; */
+}
+
+.bubble-hover {
+  /* fill: #b8c7d9; */
+  fill: #E8E9E7;
+}
+
+.bubble-selected {
+  /* fill: #a8c8ee;  */
+  fill: #CEE98F;
+  /* stroke: #6081a3; */
+  stroke: #A6BA92;
+  stroke-width: 1.5px;
+}
+
+.active {
+  color: #A6BA92
+}
+
+a.bubble-label {
+  font-family: georgia, "times new roman", times, serif;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1em;
+  position: absolute;
+}
+
+
+.bubble-label .bubble-label-value {
+  font: 11px sans-serif;
+  white-space: nowrap;
+}
+
+
 .logo {
   float: right;
 }
@@ -32,6 +93,12 @@ a {
   /* color: rgb(22, 162, 122); */
   color: rgb(255, 111, 64);
 }
+
+#view_selection {
+  /* float:right; */
+  margin-right: 10px;
+}
+
 
 
 .stroke {
