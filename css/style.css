@@ -24,6 +24,10 @@ a {
   height: 600px;
 }
 
+.logo {
+  float: right;
+}
+
 .hashtag {
   /* color: rgb(22, 162, 122); */
   color: rgb(255, 111, 64);
@@ -151,4 +155,8 @@ rect {
   fill-opacity: .9;
   stroke: #fff;
   /* pointer-events: all; */
+}
+
+#footer p {
+  text-align: center;
 }
